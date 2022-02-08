@@ -1,0 +1,15 @@
+- config_MMDetection.json
+    - an example of a config file to be used when running an experiment with MMDetection
+- predict_MMDetection.sh
+    - script to call the MMDetection library to infer predictions using a MMDetection model on a dataset given in a file like config_MMDetection.json
+- prepare_MMDetection.py
+    - prepare anything necessary to run an experiment using MMDetection
+    - should be ran first
+- results_MMDetection.py
+    - after having generated predictions using predict_MMDetection.py, computes (semantic segmentation) results in terms of mIoU
+- results_MMDetection.sh
+    - after having generated predictions using predict_MMDetection.py, computes (object instance segmentation) results
+- train_MMDetection.py
+    - trains MMDetection using information given in a config.json file following the format of config_MMDetection.json
+- visualization_MMDetection.ipynb
+    - provides an example to visualize the predictions of a MMDetection model

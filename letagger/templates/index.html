@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>letagger</title>
+
+    <script src="../static/jquery-3.6.0.js"></script>
+    <script src="../static/main.js"></script>
+
+    <link rel="stylesheet" href="../static/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfLeftWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script type="text/javascript" href="{{ url_for('static', filename='main.js') }}"></script>
+    <script type="text/javascript">
+        setGlobals({{ data|tojson }});
+    </script>
+
+</head>
+
+<body>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalSave">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to save your tags? If you press no, your new tags will be erased.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnModalNoSave">No</button>
+                <button type="button" class="btn btn-primary" id="btnModalSave">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    Save tags
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalOperation">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Operation completed.</h5>
+            </div>
+            <div class="modal-body" id="">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnModalOperationOK">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Tagger</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col col-lg-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col col-lg-4">
+                        <select class="form-control form-control-sm" id="selectLeft">
+                            <option>untagged</option>
+                            <option>tagged</option>
+                            <option>to be tagged</option>
+                            <option>auto-tagged</option>
+                        </select>
+                        <div style="height: 500px; overflow: auto">
+                            <table class="table table-sm table-hover" id="tableLeft">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width: 10%">#</th>
+                                    <th scope="col" style="width: 70%">Filename</th>
+                                    <th scope="col" style="width: 20%">Tag</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for (id, tag) in id_tags %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ id }}</td>
+                                    <td>{{ tag }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="btnLeft">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="Tag" id="textCreate">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" id="btnCreate">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id ="btnSimilar">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Find similar images
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id ="btnSave">                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Save tags
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id ="btnExtractTags">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Extract tags
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id ="btnExtractDataset">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Extract dataset
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id ="btnAutoTag">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Auto tag
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col col-lg-8">
+                        <img src="" id="imgLeft" class="img-fluid"/>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary btn-sm d-none" id="btnZoomLeft">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Zoom out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-6">
+            <div class="container-fluid d-none" id="rightContainer">
+                <div class="row">
+                    <div class="col col-lg-8">
+                        <img src="" id="imgRight" class="img-fluid">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary d-none" id="btnZoomRight">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                Zoom out
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4">
+                        <div style="height: 500px; overflow: auto">
+                            <table class="table table-sm table-hover" id="tableRight">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width: 10%">Score</th>
+                                    <th scope="col" style="width: 70%">Filename</th>
+                                    <th scope="col" style="width: 20%">Tag</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col" id="btnRight">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

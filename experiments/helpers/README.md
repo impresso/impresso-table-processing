@@ -1,0 +1,9 @@
+ - download_images_from_s3.py
+     - download images from impresso's S3 and resize them if asked
+     - generates a file with metadata on the size (and resized size) of each image
+ - post_processing.py
+     - contains a method to remove connected components for segmentation masks
+ - semantic_segmentation_metrics.py
+     - computes metrics used in semantic segmentation
+ - semantic_segmentation_statistics.ipynb
+     - computes all the results obtained for dhSegment and Mask R-CNN (when used in *semantic segmentation* mode)

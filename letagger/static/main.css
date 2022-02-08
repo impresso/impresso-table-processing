@@ -1,0 +1,10 @@
+table{
+  font-size: 12px;
+}
+
+table thead tr {
+  background: white;
+  position: sticky;
+  top: 0;
+}
+

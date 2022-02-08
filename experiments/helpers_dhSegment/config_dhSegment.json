@@ -1,0 +1,16 @@
+{"dataset_name": "NLL",
+ "fixed_size_resize": {"type": "fixed_resize", "height": 1333, "width": 800},
+ "pretrained": true,
+ "encoder": {"type": "resnet50", "normalization": {"type": "batch_norm_2d"}},
+ "optimizer": {"lr": 1e-4, "weight_decay": 1e-6},
+ "lr_scheduler": {"type": "exponential", "gamma": 0.99, "step_duration": 200},
+ "val_metric": "+miou",
+ "early_stopping": {"patience": 10},
+ "num_epochs": 25,
+ "evaluate_every_epoch": 1,
+ "batch_size": 2,
+ "reset_early_stopping": false,
+ "regularizer": null,
+ "train_dataset": {"repeat_dataset": 1},
+ "val_dataset": {"repeat_dataset": 1}
+}

@@ -1,0 +1,9 @@
+{"train_set_path": "/scratch/students/amvernet/datasets/text/v2/B1_train.parquet",
+"val_set_path": "/scratch/students/amvernet/datasets/text/v2/B1_val.parquet",
+"model_name" : "microsoft/layoutxlm-base",
+"evaluation_strategy": "epoch",
+"num_train_epochs": 10,
+"batch_size": 4,
+"metric_for_best_model": "eval_accuracy",
+"metric": "accuracy"
+}

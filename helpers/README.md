@@ -1,0 +1,8 @@
+- datasets.py:
+    - methods for converting the dataframe generated using the notebooks in RB and NL to VIA or COCO format
+    - method for converting annotations format (VIA to COCO), only functions for the purpose of this work and was not thought for general use
+    - methods to generate splits for the datasets
+- filtering.py:
+    - filtering heuristic based on the manual identification of clusters of problematic newspaper pages as described in the thesis
+- impresso_id.py:
+    - methods to extract metadata from strings following the impresso ID format
