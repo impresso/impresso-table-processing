@@ -1,0 +1,157 @@
+\documentclass[11pt,preprint]{report}
+
+%\includeonly{introduction} 
+\counterwithout{footnote}{chapter}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=black,
+    %pdftitle={},
+    pdfpagemode=FullScreen,
+    }
+
+\urlstyle{same}
+
+\usepackage{array}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ 
+ \usepackage{graphicx}
+ \graphicspath{ {figures/} }
+ 
+\usepackage{amsmath, amsfonts}
+
+\usepackage[toc,page]{appendix}
+
+\usepackage{subfig}
+ 
+ \usepackage[
+ natbib=true, 
+backend=biber,
+style=authoryear,
+sorting=nty,
+maxcitenames=1
+]{biblatex}
+\addbibresource{bibliography.bib}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\bibstyle{plain}
+
+\renewenvironment{abstract}
+ {\cleardoublepage\thispagestyle{empty}\null\vfill
+  \begin{center}
+  \bfseries \abstractname\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{
+    \setlength{\leftmargin}{3cm}%
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax}
+ {\vfill\null}
+ {\endlist}
+ 
+\newenvironment{acknowledgements}
+ {\cleardoublepage\thispagestyle{empty}\null\vfill
+  \begin{center}
+  \bfseries Acknowledgements\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{
+    \setlength{\leftmargin}{2.5cm}%
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax}
+{\vfill\null}
+{\endlist}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\hspace{0cm}
+%\vspace{5cm}
+\vspace{3cm}
+
+\Large
+Master's thesis in Data Science
+\vspace{0.25cm}
+
+\rule{\textwidth}{1pt}
+\LARGE
+%Semantic and object instance segmentation, and classification of tables in large-scale newspaper archives
+\textbf{Automatic table detection and classification in large-scale newspaper archives}
+\vspace{0.5cm}
+\rule{\textwidth}{1pt}
+   
+\vspace{0.5cm}
+
+\Large
+Ecole Polytechnique Fédérale de Lausanne \\
+\vspace{0.2cm}
+\large
+School of Computer and Communication Sciences\\
+\vspace{0.2cm}
+\large
+Digital Humanities Laboratory \\
+
+
+\vfill
+
+\LARGE
+\textbf{Arthur Vernet} \\
+\vspace{0.25cm}
+\large
+Lausanne, 14th of January 2022
+      
+\vspace{2.5cm}
+
+\includegraphics[width = 0.125\textwidth]{epfl.png}
+
+\vspace{1.5cm}
+
+\large
+Supervisors: Maud Ehrmann (EPFL) and Simon Clematide (UZH).\\
+\vspace{0.2cm}
+Professor: Frédéric Kaplan (EPFL).
+\vspace{1cm}
+\end{center}
+\end{titlepage}
+
+
+\begin{abstract}
+In recent decades, major efforts to digitize historical documents led to the creation of large machine readable corpora, including newspapers, which are waiting to be processed and analyzed. Newspapers are a valuable historical source, notably because of the plurality of subjects and points of view they cover; however their heterogeneity due to their diachronic properties and their visual richness makes them difficult to deal with. Certain recurring elements, such as tables, which are powerful layout objects because of their ability to easily convey a large amount of information through their logical visual arrangement, play a role in the difficulty of processing them. \\
+This thesis focuses on automatic table processing in large-scale newspaper archives. Starting from a large corpus of Luxembourgish newspapers annotated with tables, we propose a statistical exploration of this dataset as well as strategies to address its annotation inconsistencies and to automatically bootstrap a training dataset for table classification. We also explore the ability of deep learning methods to detect and semantically classify tables. The performance of image segmentation models are compared in a series of experiments around their ability to learn under challenging conditions, while classifiers based on different combinations of data modalities are evaluated on the task of table classification. \\
+Results show that visual models are able to detect tables by learning on an inconsistent ground truth, and that adding further modalities increases classification performance. 
+\end{abstract}
+
+\begin{acknowledgements}
+An immense thank you goes out to my two supervisors for their invaluable guidance throughout this project, but also for their infectious dedication to the project. They helped me a great deal in understanding how to structure my thoughts and processes to best meet the scientific and academic standard.\\
+A classic yet unavoidable thank you must go to both of my parents for their continued support and absolute confidence in my ability to complete my studies, even when their trajectory could not exactly be described as direct.\\
+I would also like to thank the members of the DHLAB for their great hospitality and energy, which made me feel welcomed from the first days.\\
+Finally, thanks to Nicola Ortelli, Yura Tak and Karim Kaba for giving some of their time to proofread some parts of my work.
+\end{acknowledgements}
+
+\tableofcontents
+
+\include{01_introduction}
+
+\include{02_literature_review}
+
+\include{03_datasets}
+
+\include{04_models}
+
+\include{05_experiments}
+
+\include{06_conclusion}
+
+\printbibliography
+
+\end{document}
