@@ -6,6 +6,7 @@ It is organized as follows:
 * letagger: Annotation GUI.
 * NLL: Pre-processing, exploration and splits for the dataset NLL.
 * RB: Pre-processing, exploration and splits for the dataset RB.
+* thesis: Contains files necessary to generate the PDF of the thesis.
 
 In each folder, a README explaining the use for each file can be found.
 
