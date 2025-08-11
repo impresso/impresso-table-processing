@@ -2,9 +2,11 @@ import pickle
 import sys
 import gzip
 import json
+from pathlib import Path
+import os
 
-from helpers import is_page
-from settings import *
+#from impresso_id import is_page
+from settings import MAX_CACHE_SIZE, TMP_PATH, DF_METADATA, bucket
 
 
 images = dict()
@@ -14,6 +16,10 @@ if Path(CACHE_PATH).exists():
     with open(CACHE_PATH, "rb") as f:
         images = pickle.load(f)
     current_cache_size = os.path.getsize(CACHE_PATH)
+
+
+def is_page(impresso_id):
+    return impresso_id[-5] == 'p'
 
 
 def fetch_image(image_id):

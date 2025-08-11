@@ -1,10 +1,17 @@
 import base64
-
+import sys
 import pandas as pd
+import json
+import os
 
-from cache import *
+#sys.path.append('/PATHTOHERE/impresso-table-processing/helpers')
+
+from cache import images
 from helpers import *
-from settings import *
+from cache import fetch_image, trim_cache, save_cache
+from helpers import get_weights_across_dimension
+from settings import solr, DF_TAGS, DF_METADATA, IMAGES_ON_S3, SIMILARITY_MODEL_NAME, DATASET_PATH, DATASET_NAME, \
+    AUTO, AUTO_TAG_CONFIG, AUTO_TAGS_PATH, TAGS_PATH
 from datetime import datetime
 
 from flask import Flask, render_template, request
@@ -14,6 +21,27 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
+
+def get_meta_issue_id(impresso_id):
+    return impresso_id[:-6]
+
+def get_journal(impresso_id):
+    return impresso_id[:-19]
+
+
+def get_date(impresso_id):
+    return datetime.datetime(get_year(impresso_id), get_month(impresso_id), get_day(impresso_id))
+
+def get_day(impresso_id):
+    return int(impresso_id[-10:-8])
+
+
+def get_month(impresso_id):
+    return int(impresso_id[-13:-11])
+
+
+def get_year(impresso_id):
+    return int(impresso_id[-18:-14])
 
 @app.route("/")
 def main():

@@ -18,11 +18,12 @@ AUTO_TAG_CONFIG = {"score_threshold": 0.99,
 
 ### SOLR (not mandatory if visual similarity is not used)
 # where the image vectors for tables have been stored
-solr = pysolr.Solr(os.environ.get('SOLR_URL', None) + "/impresso_table_images")
+solr ="https://login_table_writer:pwd@solrdev.dhlab.epfl.ch/impresso_table_images"
+#solr = pysolr.Solr(os.environ.get('SOLR_URL', None) + "/impresso_table_images")
 
 
 ### S3 (not mandatory if dataset to be used is locally stored)
-IMAGES_ON_S3 = True  # are the images stored locally or on S3
+IMAGES_ON_S3 = True   # are the images stored locally or on S3
 # where images are stored on S3
 s3 = boto3.resource('s3',
                     endpoint_url='https://' + os.environ.get("S3_ENDPOINT", 'os.zhdk.cloud.switch.ch'),
@@ -46,6 +47,7 @@ DATASET_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data",
 os.makedirs(DATASET_PATH, exist_ok=True)
 # path to the parquet file that contains the location of the cropped and full images
 METADATA_PATH = os.path.join(DATASET_PATH, "tables_metadata_s3.parquet")
+print(METADATA_PATH)
 if Path(METADATA_PATH).exists():
     DF_METADATA = pd.read_parquet(METADATA_PATH)
 else:
